@@ -1,0 +1,50 @@
+body {
+    font-size: 1em;
+    margin: 20px;
+    font-family: Arial,Helvetica,sans-serif;
+}
+input[type=text] {
+    width: 3em;
+}
+input[type=number] {
+    width: 3em;
+}
+div {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+div.indent1 {
+    margin-left: 3em;
+}
+div.indent2 {
+    margin-left: 1.5em;
+}
+table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+}
+th {
+    border: 1px solid black;
+    padding-bottom: 0.3em;
+    padding-top: 0.3em;
+    padding-left: 0.7em;
+    padding-right: 0.7em;
+}
+
+td {
+    padding-bottom: 0.3em;
+    padding-top: 0.3em;
+    padding-left: 0.7em;
+    padding-right: 0.7em;
+
+    border: 1px solid black;
+    margin: 0;
+}
+.presenterror{
+    color: red;
+}
+.notes {
+    color: gray;
+}

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FSMg</title>
+    <link href="index.css" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" />
+    <script src="configs.js"></script>
+</head>
+<body>
+<div class="indent1">
+<img src="logo.gif" width="230" height="95" alt="FSMguru" style="position: center">
+    <p class="notes">By Francesco Ratti, Computer Science and Engineering, Politecnico di Milano <a href="http://www.beasoft.it/">Website</a> <a href="mailto:francesco.ratti@hotmail.it">E-Mail</a></p>
+
+</div>
+    <h2>Impostazione (definizione caratteristiche della macchina di partenza)</h2>
+    <div class="indent1">
+<input type="radio" name="type" id="simple" checked> <label for="simple">Generazione semplice </label>
+<input type="radio" name="type" id="advanced"> <label for="advanced">Generazione avanzata </label>
+<input type="radio" name="type" id="solve"> <label for="solve">Semplificazione FSM esistente</label>
+    <h3>Parametri</h3>
+<div class="indent2">
+<div class="notes">Solo valori interi</div>
+<div><label for="numofstates" id="numofstateslbl">Numero di stati </label><input type="number"
+                                                                                               id="numofstates" min="1">
+</div>
+<div><label for="numofinputs" id="numofinputslbl">Numero di ingressi </label><input type="number"
+                                                                                                  id="numofinputs"
+                                                                                                  min="1"></div>
+<div><label for="numofoutputs" id="numofoutputslbl">Numero di uscite </label><input type="number"
+                                                                                                  id="numofoutputs"
+                                                                                                  min="1"></div>
+<div id="advancedopt" style="display: none">
+    <div><label for="numofcopies" id="numofcopieslbl">Numero di replicazioni della macchina minima </label><input
+            type="number" id="numofcopies" min="1"></div>
+    <div><label for="entropy" id="entropylbl">Probabilità p (%) che gli stati replicati siano ricombinati (tra 0 e
+        100) </label><input id="entropy" type="number" min="0" max="100">
+        <div class="notes indent2">p=0 nessuno stato sarà ricombinato e le macchine sono disaccoppiate, p=100 tutti gli
+            stati saranno ricombinati casualmente e le macchine possono essere collegate tra loro. Al diminuire di p
+            aumenta la probabilità che il numero di stati irraggiungibili aumenti.
+        </div>
+    </div>
+    <div><label for="numofunreachables" id="numofunreachableslbl">Numero minimo di stati irraggiungibili </label><input
+            id="numofunreachables" type="number" min="0"></div>
+    <div><label for="maxunreachables">Numero massimo di stati irraggiungibili </label><input disabled
+                                                                                             id="maxunreachables"
+                                                                                             type="number"></div>
+</div>
+</div>
+    <h3>Caratteristiche</h3>
+        <div class="indent2">
+            <div><label for="machinetype">Tipo </label><select id="machinetype">
+                <option selected>Moore</option>
+                <option>Mealy</option>
+            </select>
+            </div>
+            <div id="fullyspecifiedblock">
+                <div><input type="checkbox" checked id="fullyspecified"><label for="fullyspecified"> Completamente
+                    specificata</label></div>
+                <div id="dcopt" style="display: none" class="indent2">
+                    <div><input type="checkbox" id="dcinput" checked><label for="dcinput"> Condizioni "don't care" su
+                        stati
+                        futuri</label></div>
+                    <div class="indent2">
+                        <div><label for="DCinputProbability" id="dcinputlbl">Probabilità (%) di distribuzione di DC su
+                            stati
+                            futuri (tra 5 e 95) </label><input id="DCinputProbability" type="number" min="5" max="95">
+                        </div>
+                        <div><input id="DCinputConstraint" type="checkbox" checked><label for="DCinputConstraint">
+                            Controllo DC
+                            su stati futuri</label></div>
+                        <div class="notes indent2">Se attivato, per ogni stato raggiungibile almeno uno stato futuro non
+                            presenta DC. Potrebbe alterare la probabilità di distribuzione dei DC su stati futuri. Pu&ograve;
+                            essere rischioso disattivarlo con &quot;Numero minimo di classi di massima compatibilità&quot;
+                            superiore a 1 e un'alta probabilit&agrave; di distribuzione dei DC su stati futuri.
+                        </div>
+                    </div>
+                    <div><input type="checkbox" id="dcoutput" checked><label for="dcoutput"> Condizioni "don't care" su
+                        uscite </label></div>
+                    <div class="indent2">
+                        <div><label for="DCoutputProbability" id="dcoutputlbl">Probabilità (%) di distribuzione di DC su
+                            uscite
+                            (tra 5 e 95) </label><input id="DCoutputProbability" type="number" min="5" max="95"></div>
+                        <div><input id="DCoutputConstraint" type="checkbox" checked><label for="DCoutputConstraint">
+                            Controllo
+                            DC su uscite</label></div>
+                        <div class="notes indent2">Se attivato, fra tutte le uscite degli stati
+                            raggiungibili almeno una non
+                            presenta DC. Potrebbe alterare la probabilità di distribuzione dei DC su uscite. La
+                            disattivazione
+                            del controllo è incompatibile con &quot;Numero minimo di classi di massima compatibilità&quot;.
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>
+    <h3>Altri aspetti</h3>
+        <div class="indent2">
+            <div id="limitsblock">
+                <div><input type="checkbox" id="limits"><label for="limits" id="limitslbl"> Vincolare il numero classi
+                    di equivalenza</label></div>
+                <div class="notes indent2" id="limitsdescription">Se attivato, itera nel tentativo di soddisfare il
+                    requisito impostato.
+                </div>
+                <div class="indent2" id="limitsopt" style="display:none">
+                    <div id="minlimitblock"><input type="checkbox" id="minlimitenabled"><label for="minlimitenabled"
+                                                                                               id="minlimitlbl"> Numero
+                        minimo
+                        di classi di equivalenza </label><input type="number" id="minlimit" value="1" min="0">
+                        <div class="indent2 notes" id="limitswarning" style="display:none">Un valore superiore a 1 può
+                            essere
+                            pericoloso nei seguenti casi: probabilità di distribuzione dei DC su uscite elevata;
+                            probabilità di
+                            distribuzione dei DC su stati futuri elevata con "Controllo DC su stati futuri" disattivato.
+                        </div>
+                    </div>
+                    <div><input type="checkbox" id="maxlimitenabled"><label for="maxlimitenabled" id="maxlimitlbl">
+                        Numero
+                        massimo di classi classi di equivalenza </label><input type="number" id="maxlimit" min="1">
+                    </div>
+                </div>
+            </div>
+            <div><input type="checkbox" id="implement"><label for="implement"> Implementare </label></div>
+            <div id="implementopt" style="display: none" class="indent2">
+                <div><label for="machinecode">Codifica: </label><select id="machinecode">
+                    <option selected>Binario naturale</option>
+                    <option>One-Hot</option>
+                </select>
+                </div>
+                <div><label for="numberofff" id="numberoffflbl">Registri di memoria (Flip Flop) richiesti
+                    ante-semplificazione: </label><span id="numberofff"></span></div>
+    <h3>Tabella delle eccitazioni del Flip Flop</h3>
+        <div><label for="flipflop">Tipo di Flip Flop: </label>
+        <select id="flipflop">
+            <option selected>T</option>
+            <option>D</option>
+            <option>SR</option>
+            <option>Personalizzato</option>
+        </select>
+        </div>
+    <div class="notes">Q: valore a tempo T, Q*: valore a tempo T+1</div>
+    <div id="allowedchars" class="notes" style="display: none">Solo &quot;0&quot;, &quot;1&quot;, &quot;-&quot; per Don't Care. Tutti gli ingressi devono essere compilati con nuple della stessa lunghezza (pari al numero di ingressi).</div>
+    <div><table>
+        <tr>
+            <th>Q</th>
+            <th>Q*</th>
+            <th id="ffinputtitle">Ingresso</th>
+        </tr>
+        <tr><td>0</td><td>0</td><td><input type="text" id="inputfor0" disabled></td></tr>
+        <tr><td>0</td><td>1</td><td><input type="text" id="inputfor1" disabled></td></tr>
+        <tr><td>1</td><td>0</td><td><input type="text" id="inputfor2" disabled></td></tr>
+        <tr><td>1</td><td>1</td><td><input type="text" id="inputfor3" disabled></td></tr>
+    </table>
+    </div>
+</div>
+    </div>
+        <p id="fillerror" class="presenterror"></p>
+        <div><input type="button" value="Generazione e semplificazione" id="confirmbtn"><input type="button" id="generateonlybtn" value="Generazione" style="margin-left: 1em"></div>
+    </div>
+<div id="tablecontainer"></div>
+<script src="index.js"></script>
+</body>
+</html>
